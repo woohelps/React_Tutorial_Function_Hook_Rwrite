@@ -1,11 +1,13 @@
-import Game from './Game'
+import GameComponent from './Game/GameComponent/GameComponent'
 import Image from './Theme/Image'
+import GameHook from "./Game/GameHook/GameHook";
 
 function App() {
   return (
       <div>
-        <Game />
-        <Image />
+          <GameHook/>
+        {/*<GameComponent />*/}
+        {/*<Image />*/}
       </div>
   );
 }
