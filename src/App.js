@@ -5,8 +5,8 @@ import GameHook from "./Game/GameHook/GameHook";
 function App() {
   return (
       <div>
-          <GameHook/>
-        {/*<GameComponent />*/}
+          {/*<GameHook/>*/}
+        <GameComponent />
         {/*<Image />*/}
       </div>
   );

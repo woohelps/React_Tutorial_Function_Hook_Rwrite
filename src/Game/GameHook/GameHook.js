@@ -12,29 +12,45 @@ const GameHook = () => {
 
     const [status, setStatus] = useState('Next player: ' + (xIsNext ? 'X' : 'O'));
 
-    const current = history[history.length - 1];
-    const winner = CalculateWinner(current.squares);
+    const [stepNumber, setStepNumber] = useState(0);
 
+
+    const current = history[stepNumber];
+    const winner = CalculateWinner(current.squares);
     const moves = history.map((step, move) => {
         const desc = move ?
             'Go to move #' + move :
             'Go to game start';
         return (
-            <li>
-                <button>{desc}</button>
+            <li key={move}>
+                <button onClick={() => jumpTo(move)}>{desc}</button>
             </li>
         );
     });
-
     const handleClick = (i) => {
-        const current = history[history.length - 1];
-        const squares = current.squares.slice();
+
+        const historySlice = history.slice(0, stepNumber + 1);
+        console.log(historySlice);
+
+        // const currentSlice = historySlice[historySlice.length - 1];
+        const squares = current.squares;
         if (CalculateWinner(squares) || squares[i]) {
             return;
         }
         squares[i] = xIsNext ? 'X' : 'O';
-        setHistory(history.concat([{squares: squares,}]))
+
+        console.log(historySlice.concat([{squares: squares,}]));
+
+        setHistory(historySlice.concat([{squares: squares,}]))
+
+
         setXIsNext(!xIsNext)
+        setStepNumber(history.length)
+    }
+
+    const jumpTo = (move) => {
+        setXIsNext((move % 2) === 0);
+        setStepNumber(move)
     }
 
     useEffect(()=>{
